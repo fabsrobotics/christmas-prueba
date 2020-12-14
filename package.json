@@ -4,13 +4,16 @@
   "description": "",
   "main": "gravity.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andresbr92/gravity.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "nodemon": "^2.0.6"
-  }
+  "bugs": {
+    "url": "https://github.com/andresbr92/gravity/issues"
+  },
+  "homepage": "https://github.com/andresbr92/gravity#readme"
 }
