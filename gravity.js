@@ -9,7 +9,8 @@ var Example = Example || {};
         MouseConstraint = Matter.MouseConstraint,
         Mouse = Matter.Mouse,
         World = Matter.World,
-        Bodies = Matter.Bodies;
+        Bodies = Matter.Bodies,
+        Svg = Matter.Svg
 
     // create engine
     var engine = Engine.create(),
@@ -24,7 +25,6 @@ var Example = Example || {};
         options: {
             width: window.visualViewport.width,
             height: window.visualViewport.height,
-            showAngleIndicator: true
         }
     });
 
@@ -66,12 +66,9 @@ var Example = Example || {};
         Bodies.rectangle(0, 0, window.visualViewport.width*2, 20, { isStatic: true }),
         Bodies.rectangle(0, 0, 20, window.visualViewport.height*2, { isStatic: true }),
         Bodies.rectangle(window.visualViewport.width, window.visualViewport.height/2, 20, window.visualViewport.height, { isStatic: true }),
-        
         Bodies.rectangle(0, window.visualViewport.height, window.visualViewport.width*2, 20, { isStatic: true }),
-        
+
         stack,
-        
-        
     ]);
    
     
