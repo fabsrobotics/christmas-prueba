@@ -61,12 +61,16 @@ var Example = Example || {};
         }
     });
 
+
     World.add(world, [
+        Bodies.rectangle(0, 0, window.visualViewport.width*2, 20, { isStatic: true }),
+        Bodies.rectangle(0, 0, 20, window.visualViewport.height*2, { isStatic: true }),
+        Bodies.rectangle(window.visualViewport.width, window.visualViewport.height/2, 20, window.visualViewport.height, { isStatic: true }),
+        
+        Bodies.rectangle(0, window.visualViewport.height, window.visualViewport.width*2, 20, { isStatic: true }),
+        
         stack,
-        Bodies.rectangle(400, 0, 800, 50, { isStatic: true }),
-        Bodies.rectangle(400, 600, 800, 50.5, { isStatic: true }),
-        Bodies.rectangle(400, 300, 50, 600, { isStatic: true }),
-        Bodies.rectangle(0, 300, 50, 600, { isStatic: true })
+        
         
     ]);
    
@@ -116,7 +120,7 @@ var Example = Example || {};
     // fit the render viewport to the scene
     Render.lookAt(render, {
         min: { x: 0, y: 0 },
-        max: { x: 800, y: 600 }
+        max: { x: window.visualViewport.width, y: window.visualViewport.height }
     });
 
     // context for MatterTools.Demo
