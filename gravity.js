@@ -1,7 +1,7 @@
-var Example = Example || {};
 
 
-    var Engine = Matter.Engine,
+function gravity(){
+    let Engine = Matter.Engine,
         Render = Matter.Render,
         Runner = Matter.Runner,
         Composites = Matter.Composites,
@@ -13,92 +13,152 @@ var Example = Example || {};
         Svg = Matter.Svg
 
     // create engine
-    var engine = Engine.create(),
+    let engine = Engine.create(),
         world = engine.world;
-    //lenght and with
+      
     
+    //lenght and with
+    const w = window.visualViewport.width;
+    const h = window.visualViewport.height;
 
     // create renderer
-    var render = Render.create({
-        element: document.body,
+    const canvasSnow = document.getElementById("canvasSnow")
+    let render = Render.create({
+        element: canvasSnow,
         engine: engine,
         options: {
-            width: window.visualViewport.width,
-            height: window.visualViewport.height,
+            width: w,
+            height: h,
+            wireframes: false,
+            background: "#ffffff00"
         }
     });
 
     Render.run(render);
+    
 
     // create runner
-    var runner = Runner.create();
+    let runner = Runner.create();
     Runner.run(runner, engine);
 
-    // add bodies
-    var stack = Composites.stack(20, 20, 10, 5, 0, 0, function(x, y) {
-        var sides = Math.round(Common.random(1, 8));
+    //const snowFlakesArray = []
+    let gravity = engine.world.gravity;
 
-        // triangles can be a little unstable, so avoid until fixed
-        sides = (sides === 3) ? 4 : sides;
+    // snowBall
+   // const sbRadius = w/3;
+   // const SnowBall = Bodies.circle(w/2,h/2,sbRadius,{isStatic: true})
+    //World.add(world,[SnowBall])
 
-        // round the edges of some bodies
-        var chamfer = null;
-        if (sides > 2 && Common.random() > 0.7) {
-            chamfer = {
-                radius: 10
-            };
+    // miniflakes
+    // let mfArray = []
+    // const mfRadius = sbRadius/20;
+    // for(let i = 0; i < 100; i++){
+    //     let mfBall = Bodies.circle(w/2+i,h/2.9,mfRadius, {render: {fillStyle: "#0000ff",strokeStyle: "#fff",}})
+
+
+    //     mfArray.push(mfBall);
+
+    // }
+    // World.add(world,mfArray); 
+
+        let ballRadius =  w / 3
+
+        for(let i = 0; i < 90; i++) {
+            a = Bodies.rectangle(
+                w / 2  + ballRadius * Math.cos(i * 4 * Math.PI / 180), 
+                h / 2 + ballRadius * Math.sin(i * 4 * Math.PI / 180), 
+                10, 
+                10, 
+                {
+                    isStatic: true, 
+                    angle: Math.PI / 180 * i * 4,
+                    render: {
+                        fillStyle: "#000",
+                        strokeStyle: "#fff",
+                        lineWidth: 0,
+                         visible: 0,
+                    }
+                }
+            );
+            World.add(engine.world, a);
         }
+       
 
-        switch (Math.round(Common.random(0, 1))) {
-        case 0:
-            if (Common.random() < 0.8) {
-                return Bodies.rectangle(x, y, Common.random(25, 50), Common.random(25, 50), { chamfer: chamfer });
-            } else {
-                return Bodies.rectangle(x, y, Common.random(80, 120), Common.random(25, 30), { chamfer: chamfer });
+   
+
+   
+    setInterval(() => {
+        
+
+        gravity.x = Common.random(-0.1, 0.1)
+        gravity.y = 0.5
+        
+        World.add(world, [
+            Bodies.circle(Common.random(20, window.visualViewport.width), -10, Common.random(5,10)),
+            
+            Bodies.circle(Common.random(20, window.visualViewport.width), -10, Common.random(5,10)),
+            
+        ]);
+        
+        const allBodies = Matter.Composite.allBodies(world)
+        allBodies.forEach(element => {
+            
+
+            if(element.position.x >( window.visualViewport.width + 50) | element.position.x < 0) {
+                Matter.Composite.remove(world, element)
             }
-        case 1:
-            return Bodies.polygon(x, y, sides, Common.random(25, 50), { chamfer: chamfer });
-        }
-    });
+            
+            
+            
+        });
+
+        
+    }, 400);
+
+
+
+   
+   
+
 
 
     World.add(world, [
-        Bodies.rectangle(0, 0, window.visualViewport.width*2, 20, { isStatic: true }),
-        Bodies.rectangle(0, 0, 20, window.visualViewport.height*2, { isStatic: true }),
-        Bodies.rectangle(window.visualViewport.width, window.visualViewport.height/2, 20, window.visualViewport.height, { isStatic: true }),
+        //snowFlakesArray,
+        //Bodies.rectangle(0, 0, window.visualViewport.width*2, 20, { isStatic: true }),
+        //Bodies.rectangle(0, 0, 20, window.visualViewport.height*2, { isStatic: true }),
+        //Bodies.rectangle(window.visualViewport.width, window.visualViewport.height/2, 20, window.visualViewport.height, { isStatic: true }),
         Bodies.rectangle(0, window.visualViewport.height, window.visualViewport.width*2, 20, { isStatic: true }),
-
-        stack,
+        //stack,
     ]);
    
     
 
     // add gyro control
-    if (typeof window !== 'undefined') {
-        var updateGravity = function(event) {
-            var orientation = typeof window.orientation !== 'undefined' ? window.orientation : 0,
-                gravity = engine.world.gravity;
+    // if (typeof window !== 'undefined') {
+    //     let updateGravity = function(event) {
+    //         let orientation = typeof window.orientation !== 'undefined' ? window.orientation : 0,
+    //             gravity = engine.world.gravity;
 
-            if (orientation === 0) {
-                gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
-                gravity.y = Common.clamp(event.beta, -90, 90) / 90;
-            } else if (orientation === 180) {
-                gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
-                gravity.y = Common.clamp(-event.beta, -90, 90) / 90;
-            } else if (orientation === 90) {
-                gravity.x = Common.clamp(event.beta, -90, 90) / 90;
-                gravity.y = Common.clamp(-event.gamma, -90, 90) / 90;
-            } else if (orientation === -90) {
-                gravity.x = Common.clamp(-event.beta, -90, 90) / 90;
-                gravity.y = Common.clamp(event.gamma, -90, 90) / 90;
-            }
-        };
+    //         if (orientation === 0) {
+    //             gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
+    //             gravity.y = Common.clamp(event.beta, -90, 90) / 90;
+    //         } else if (orientation === 180) {
+    //             gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
+    //             gravity.y = Common.clamp(-event.beta, -90, 90) / 90;
+    //         } else if (orientation === 90) {
+    //             gravity.x = Common.clamp(event.beta, -90, 90) / 90;
+    //             gravity.y = Common.clamp(-event.gamma, -90, 90) / 90;
+    //         } else if (orientation === -90) {
+    //             gravity.x = Common.clamp(-event.beta, -90, 90) / 90;
+    //             gravity.y = Common.clamp(event.gamma, -90, 90) / 90;
+    //         }
+    //     };
 
-        window.addEventListener('deviceorientation', updateGravity);
-    }
+    //     window.addEventListener('deviceorientation', updateGravity);
+    // }
 
     // add mouse control
-    var mouse = Mouse.create(render.canvas),
+    let mouse = Mouse.create(render.canvas),
         mouseConstraint = MouseConstraint.create(engine, {
             mouse: mouse,
             constraint: {
@@ -135,7 +195,4 @@ var Example = Example || {};
     //     }
     // };
 
-
-if (typeof module !== 'undefined') {
-    module.exports = Example[Object.keys(Example)[0]];
 }

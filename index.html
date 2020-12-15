@@ -1,16 +1,4 @@
-<!-- <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-   
-    
-</head>
-<body>
-    
-    
-</body>
-</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,9 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="./matter.js"></script>
-  </head>
-  <body>
     <script src="./gravity.js" ></script>
+    <script src="./snowball.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        border: 0;
+        padding: 0;
+      }
+      body {
+        background-color: red;
+      }
+      #canvasSnow {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 0;
+      }
+      .bola {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="canvasSnow">
+
+      
+    </div>
+    <div id="canvasBall">
+      
+      
+    </div>
+    
+    <div class="bola">
+      <img src="./bola.png" alt="" width="100%" >
+
+    </div>
+<script>
+function requestDeviceOrientation () {
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+  DeviceOrientationEvent.requestPermission()
+  .then(permissionState => {
+  if (permissionState !== 'granted') {
+  alert("Así no funciona.");
+  }
+  })
+  .catch(console.error);
+  } else {
+  // handle regular non iOS 13+ devices
+  console.log ("not iOS");
+  }
+}
+  gravity();
+  snowBall();
+</script>
 
   
     
