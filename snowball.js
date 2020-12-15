@@ -49,8 +49,8 @@
     // miniflakes
     let mfArray = []
     const mfRadius = sbRadius/20;
-    for(let i = 0; i < 100; i++){
-        let mfBall = Bodies.circle(wBall/2+i, hBall / 2 + 90 * Math.sin(i * 4 * Math.PI / 180),mfRadius, {render: {fillStyle: "#0000ff",strokeStyle: "#fff",}})
+    for(let i = 0; i < 200; i++){
+        let mfBall = Bodies.circle(wBall/2+i, hBall / 2 + 90 * Math.sin(i * 4 * Math.PI / 180),Common.random(3, 7), {render: {fillStyle: "#fff", strokeStyle: "#fff",}})
 
 
         mfArray.push(mfBall);
@@ -61,18 +61,18 @@
         {
             isStatic:true,
             render:{
-                visible: 0
+                visible: 1
             }
     }))
 
-        let ballRadius =  wBall / 3
+        let ballRadius =  wBall / 2.7
 
         for(let i = 0; i < 90; i++) {
             a = Bodies.rectangle(
                 wBall / 2  + ballRadius * Math.cos(i * 4 * Math.PI / 180), 
                 hBall / 2 + ballRadius * Math.sin(i * 4 * Math.PI / 180), 
-                10, 
-                10, 
+                20, 
+                20, 
                 {
                     isStatic: true, 
                     angle: Math.PI / 180 * i * 4,
@@ -96,15 +96,19 @@
             if (orientation === 0) {
                 gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
                 gravity.y = Common.clamp(event.beta, -90, 90) / 90;
+                console.log(gravity.x, gravity.y)
             } else if (orientation === 180) {
                 gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
                 gravity.y = Common.clamp(-event.beta, -90, 90) / 90;
+                console.log(gravity.x, gravity.y)
             } else if (orientation === 90) {
                 gravity.x = Common.clamp(event.beta, -90, 90) / 90;
                 gravity.y = Common.clamp(-event.gamma, -90, 90) / 90;
+                console.log(gravity.x, gravity.y)
             } else if (orientation === -90) {
                 gravity.x = Common.clamp(-event.beta, -90, 90) / 90;
                 gravity.y = Common.clamp(event.gamma, -90, 90) / 90;
+                console.log(gravity.x, gravity.y)
             }
         };
 

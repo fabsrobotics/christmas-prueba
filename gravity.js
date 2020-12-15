@@ -61,14 +61,14 @@ function gravity(){
     // }
     // World.add(world,mfArray); 
 
-        let ballRadius =  w / 3
+        let ballRadius =  w / 2.7
 
         for(let i = 0; i < 90; i++) {
             a = Bodies.rectangle(
                 w / 2  + ballRadius * Math.cos(i * 4 * Math.PI / 180), 
                 h / 2 + ballRadius * Math.sin(i * 4 * Math.PI / 180), 
-                10, 
-                10, 
+                15, 
+                15, 
                 {
                     isStatic: true, 
                     angle: Math.PI / 180 * i * 4,
@@ -76,7 +76,7 @@ function gravity(){
                         fillStyle: "#000",
                         strokeStyle: "#fff",
                         lineWidth: 0,
-                         visible: 0,
+                         //visible: 0,
                     }
                 }
             );
@@ -94,9 +94,9 @@ function gravity(){
         gravity.y = 0.2
         
         World.add(world, [
-            Bodies.circle(Common.random(20, window.visualViewport.width), -10, Common.random(5,10)),
+            Bodies.circle(Common.random(20, window.visualViewport.width), -10, Common.random(3,7), {render: {fillStyle: "#fff", strokeStyle: "#fff",}}),
             
-            Bodies.circle(Common.random(20, window.visualViewport.width), -10, Common.random(5,10)),
+            Bodies.circle(Common.random(20, window.visualViewport.width), -10, Common.random(3,7), {render: {fillStyle: "#fff", strokeStyle: "#fff",}}),
             
         ]);
         
