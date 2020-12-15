@@ -50,13 +50,20 @@
     let mfArray = []
     const mfRadius = sbRadius/20;
     for(let i = 0; i < 100; i++){
-        let mfBall = Bodies.circle(wBall/2+i,hBall/2.9,mfRadius, {render: {fillStyle: "#0000ff",strokeStyle: "#fff",}})
+        let mfBall = Bodies.circle(wBall/2+i, hBall / 2 + 90 * Math.sin(i * 4 * Math.PI / 180),mfRadius, {render: {fillStyle: "#0000ff",strokeStyle: "#fff",}})
 
 
         mfArray.push(mfBall);
 
     }
     World.add(world,mfArray); 
+    World.add(world, Bodies.circle(wBall/2, hBall/2, 100, 
+        {
+            isStatic:true,
+            render:{
+                visible: 0
+            }
+    }))
 
         let ballRadius =  wBall / 3
 
@@ -73,7 +80,7 @@
                         fillStyle: "#000",
                         strokeStyle: "#fff",
                         lineWidth: 0,
-                        // visible: 0,
+                         //visible: 0,
                     }
                 }
             );

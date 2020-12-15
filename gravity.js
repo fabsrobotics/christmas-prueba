@@ -91,7 +91,7 @@ function gravity(){
         
 
         gravity.x = Common.random(-0.1, 0.1)
-        gravity.y = 0.5
+        gravity.y = 0.2
         
         World.add(world, [
             Bodies.circle(Common.random(20, window.visualViewport.width), -10, Common.random(5,10)),
