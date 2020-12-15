@@ -4,6 +4,7 @@
         Render = Matter.Render,
         Runner = Matter.Runner,
         World = Matter.World,
+        Common = Matter.Common,
         Bodies = Matter.Bodies
 
     // create engine
@@ -37,7 +38,7 @@
 
     const snowFlakesArray = []
     let gravity = world.gravity;
-    gravity.y = -0.1
+    //gravity.y = -0.1
     
 
     // snowBall
@@ -78,6 +79,30 @@
             );
             World.add(world, a);
         }
+
+         //add gyro control
+    if (typeof window !== 'undefined') {
+        let updateGravity = function(event) {
+            let orientation = typeof window.orientation !== 'undefined' ? window.orientation : 0,
+                gravity = engine.world.gravity;
+
+            if (orientation === 0) {
+                gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
+                gravity.y = Common.clamp(event.beta, -90, 90) / 90;
+            } else if (orientation === 180) {
+                gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
+                gravity.y = Common.clamp(-event.beta, -90, 90) / 90;
+            } else if (orientation === 90) {
+                gravity.x = Common.clamp(event.beta, -90, 90) / 90;
+                gravity.y = Common.clamp(-event.gamma, -90, 90) / 90;
+            } else if (orientation === -90) {
+                gravity.x = Common.clamp(-event.beta, -90, 90) / 90;
+                gravity.y = Common.clamp(event.gamma, -90, 90) / 90;
+            }
+        };
+
+        window.addEventListener('deviceorientation', updateGravity);
+    }
        
 
     // fit the render viewport to the scene
