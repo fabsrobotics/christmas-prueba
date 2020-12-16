@@ -142,12 +142,13 @@ function snowBall() {
     if (mfArray.length < 200) {
         let mfBall = Bodies.circle(
             wBall / 2,
-            hBall / 2 + 90 * Math.sin((i * 4 * Math.PI) / 180),
+            hBall / 2 + 90 * Math.sin(( 4 * Math.PI) / 180),
             Common.random(mfRadius, mfRadius / 1.3),
             { render: { fillStyle: "#fff", strokeStyle: "#fff" } }
             );
             
             mfArray.push(mfBall);
+            World.add(world,mfBall)
         }
         
         console.log(mfArray.length)
