@@ -89,15 +89,19 @@
         }
 
          //add gyro control
-    if (typeof window !== 'undefined') {
-        let updateGravity = function(event) {
-            gravity.x = (valGravityX / 10)
-            gravity.y = (valGravityY / 10)
+//     if (typeof window !== 'undefined') {
+//         let updateGravity = function(event) {
+            
 
-        window.addEventListener('deviceorientation', updateGravity);
-    }
-}
+//         window.addEventListener('deviceorientation', updateGravity);
+//     }
+// }
        
+setInterval(() => {
+    gravity.x = (valGravityX / 10)
+            gravity.y = (valGravityY / 10)
+    
+}, 200);
 
     // fit the render viewport to the scene
     Render.lookAt(render, {
