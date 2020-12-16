@@ -103,7 +103,7 @@ function gravity() {
       window.visualViewport.width * 2,
       20,
       { isStatic: true }
-    ),
+    )
     ,
   ]);
 

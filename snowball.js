@@ -81,7 +81,7 @@ function snowBall() {
           fillStyle: "#000",
           strokeStyle: "#fff",
           lineWidth: 0,
-          visible: 1,
+          visible: 0,
         },
       }
     );
