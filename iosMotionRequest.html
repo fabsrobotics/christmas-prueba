@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Motion</title>
+
+    <style>
+      * {
+        margin: 0;
+        border: 0;
+        padding: 0;
+      }
+	  html,body {
+		  width: 100%;
+		  height: 100%;
+	  }
+      body {
+        background-color: rgb(237,183,85);
+		}
+		#container {
+			padding: 50px;
+			width: calc( 100% - 100px );
+			height: calc( 100% - 100px );
+		}
+    </style>
+  </head>
+
+  <body>
+	  <div id="container">
+		  acce-x: <span id="acce-x"></span><br/>
+		  acce-y: <span id="acce-y"></span><br/>
+		  acce-z: <span id="acce-z"></span><br/><br/>
+
+		  acce-grav-x: <span id="acce-grav-x"></span><br/>
+		  acce-grav-y: <span id="acce-grav-y"></span><br/>
+		  acce-grav-z: <span id="acce-grav-z"></span><br/><br/>
+
+		  lastMotion: <span id="interval"></span><br/><br/>
+
+		  rot-alpha: <span id="rot-alpha"></span><br/>
+		  rot-beta: <span id="rot-beta"></span><br/>
+		  rot-gamma: <span id="rot-gamma"></span><br/><br/>
+	  </div>
+<script>
+function requestPermission() {
+	DeviceOrientationEvent.requestPermission().then(permissionState => {
+		if (permissionState !== 'granted') {
+			alert("La aplicación no funciona sin estos permisos.\nSi quieres volver a intentarlo sal de safari primero.");
+		} else {
+			document.getElementById("overlay").style.display = "none";
+		}
+	}).catch(err => {
+		alert(err+"Tu dispositivo no tiene acelerometros. Sorry :(");
+	});
+}
+	if(DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function'){
+		let overlay = document.createElement("DIV");
+		let button = document.createElement("DIV");
+		button.innerHTML = "Start";
+		overlay.appendChild(button);
+		document.body.appendChild(overlay);
+		overlay.id = "overlay";
+		overlay.style = `
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgb(237,183,85);
+		`;
+		button.style = `
+			width: 100px;
+			height: 100px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: red;
+			border-radius: 99999px;
+			border: 2px outset grey;
+		`;
+		button.addEventListener("click",requestPermission);
+	}
+	window.addEventListener("devicemotion",e => {
+		document.getElementById("acce-x").innerHTML = e.acceleration.x.toFixed(2);
+		document.getElementById("acce-y").innerHTML = e.acceleration.y.toFixed(2);
+		document.getElementById("acce-z").innerHTML = e.acceleration.z.toFixed(2);
+		document.getElementById("acce-grav-x").innerHTML = e.accelerationIncludingGravity.x.toFixed(2);
+		document.getElementById("acce-grav-y").innerHTML = e.accelerationIncludingGravity.y.toFixed(2);
+		document.getElementById("acce-grav-z").innerHTML = e.accelerationIncludingGravity.z.toFixed(2);
+		document.getElementById("interval").innerHTML = e.interval;
+		document.getElementById("rot-alpha").innerHTML = e.rotationRate.alpha.toFixed(2);
+		document.getElementById("rot-beta").innerHTML = e.rotationRate.beta.toFixed(2);
+		document.getElementById("rot-gamma").innerHTML = e.rotationRate.gamma.toFixed(2);
+	});
+</script>
+
+
+
+  </body>
+</html>
