@@ -97,36 +97,35 @@ function snowBall() {
       : (gravity.y = 0.05);
 
     mfArray.forEach((ball) => {
-      if (valForceX > 3 || valForceX < -3 || valGravityY > 3 || valGravityY < -3) {
+      if (valForceX > 3) {
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
-          { x: Common.random(0.0015, -0.0015), y: - 0.0015 }
+          { x: 0.002, y: 0 }
         );
         return;
-       } 
-    //else if (valForceX < -3) {
-    //     Body.applyForce(
-    //       ball,
-    //       { x: ball.position.x, y: ball.position.y },
-    //       { x: -0.002, y: 0 }
-    //     );
-    //     return;
-    //   } else if (valForceY > 3) {
-    //     Body.applyForce(
-    //       ball,
-    //       { x: ball.position.x, y: ball.position.y },
-    //       { x: 0, y: 0.002 }
-    //     );
-    //     return;
-    //   } else if (valForceY < -3) {
-    //     Body.applyForce(
-    //       ball,
-    //       { x: ball.position.x, y: ball.position.y },
-    //       { x: 0, y: -0.002 }
-    //     );
-    //     return;
-    //   }
+      } else if (valForceX < -3) {
+        Body.applyForce(
+          ball,
+          { x: ball.position.x, y: ball.position.y },
+          { x: -0.002, y: 0 }
+        );
+        return;
+      } else if (valForceY > 3) {
+        Body.applyForce(
+          ball,
+          { x: ball.position.x, y: ball.position.y },
+          { x: 0, y: 0.002 }
+        );
+        return;
+      } else if (valForceY < -3) {
+        Body.applyForce(
+          ball,
+          { x: ball.position.x, y: ball.position.y },
+          { x: 0, y: -0.002 }
+        );
+        return;
+      }
     });
     const allBodies = Matter.Composite.allBodies(world);
     allBodies.forEach((element) => {
