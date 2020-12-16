@@ -124,7 +124,7 @@
 		// e.acceleration.x.toFixed(2);
 		// e.acceleration.y.toFixed(2);
 		// e.acceleration.z.toFixed(2);
-    e.accelerationIncludingGravity.x ?	valGravityX = e.accelerationIncludingGravity.x : null
+    e.accelerationIncludingGravity.x ?	valGravityX = orientation * e.accelerationIncludingGravity.x : null
     e.accelerationIncludingGravity.y ? valGravityY = orientation * e.accelerationIncludingGravity.y : null
     e.acceleration.x ? valForceX = e.acceleration.x : null
     e.acceleration.y ? valForceY = e.acceleration.y : null
