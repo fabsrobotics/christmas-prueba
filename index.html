@@ -27,7 +27,6 @@
       .ball-back {
         z-index: -1;
         position: absolute;
-        margin-top: 50px;
         top: 0;
         left: 0;
         height: 100%;
@@ -42,7 +41,6 @@
       .ball-front {
         z-index: 4;
         position: absolute;
-        margin-top: 50px;
         top: 0;
         left: 0;
         height: 100%;
@@ -120,7 +118,6 @@
 		button.addEventListener("click",requestPermission);
   }
 	window.addEventListener("devicemotion", e => {
-    console.log(e.accelerationIncludingGravity.x)
 		// e.acceleration.x.toFixed(2);
 		// e.acceleration.y.toFixed(2);
 		// e.acceleration.z.toFixed(2);

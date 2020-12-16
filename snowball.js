@@ -57,10 +57,10 @@ function snowBall() {
   let innerBallRadius = wBall / 8.5;
   World.add(
     world,
-    Bodies.circle(wBall / 2, hBall / 2 - 35, innerBallRadius, {
+    Bodies.circle(wBall / 2, hBall / 2 - 50, innerBallRadius, {
       isStatic: true,
       render: {
-        visible: 0,
+        visible: 1,
       },
     })
   );
@@ -70,7 +70,7 @@ function snowBall() {
   for (let i = 0; i < 90; i++) {
     a = Bodies.rectangle(
       wBall / 2 + ballRadius * Math.cos((i * 4 * Math.PI) / 180),
-      hBall / 2 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
+      hBall / 2 - 50 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
       15,
       50,
       {
@@ -80,7 +80,7 @@ function snowBall() {
           fillStyle: "#000",
           strokeStyle: "#fff",
           lineWidth: 0,
-          visible: 1,
+          visible: 0,
         },
       }
     );
@@ -88,7 +88,7 @@ function snowBall() {
   }
 
   setInterval(() => {
-    console.log(valGravityX, valGravityY);
+    
     valGravityX != undefined
       ? (gravity.x = (valGravityX * -1) / 100)
       : (gravity.x = 0);
@@ -127,6 +127,21 @@ function snowBall() {
         return;
       }
     });
+    const allBodies = Matter.Composite.allBodies(world);
+    allBodies.forEach((element) => {
+      if (
+        (element.position.x > window.visualViewport.width + 50) |
+        (element.position.x < 0)
+      ) {
+        Matter.Composite.remove(world, element);
+        mfArray.splice(element,1)
+
+      }
+    });
+    console.log(mfArray.length)
+    
+
+
   }, 200);
 
   // fit the render viewport to the scene
