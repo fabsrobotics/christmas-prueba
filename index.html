@@ -71,6 +71,7 @@
 
     </div>
 <script>
+  let orientation = 1; 
   //resquest permision to ios users
   var valGravityX = undefined
   var valGravityY = undefined
@@ -81,6 +82,7 @@
 		if (permissionState !== 'granted') {
 			alert("La aplicación no funciona sin estos permisos.\nSi quieres volver a intentarlo sal de safari primero.");
 		} else {
+      orientation = -1;
 			document.getElementById("overlay").style.display = "none";
 		}
 	}).catch(err => {
@@ -123,7 +125,7 @@
 		// e.acceleration.y.toFixed(2);
 		// e.acceleration.z.toFixed(2);
     e.accelerationIncludingGravity.x ?	valGravityX = e.accelerationIncludingGravity.x : null
-    e.accelerationIncludingGravity.y ? valGravityY = e.accelerationIncludingGravity.y : null
+    e.accelerationIncludingGravity.y ? valGravityY = orientation * e.accelerationIncludingGravity.y : null
     e.acceleration.x ? valForceX = e.acceleration.x : null
     e.acceleration.y ? valForceY = e.acceleration.y : null
 		e.interval;
