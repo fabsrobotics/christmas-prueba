@@ -98,8 +98,9 @@
 // }
        
 setInterval(() => {
+    console.log(valGravityX/10, valGravityY/10)
     gravity.x = (valGravityX / 10)
-            gravity.y = (valGravityY / 10)
+    gravity.y = (valGravityY / 10)
     
 }, 200);
 
