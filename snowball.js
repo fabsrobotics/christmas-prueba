@@ -94,13 +94,13 @@ setInterval(() => {
     valGravityX != undefined ? gravity.x = ((valGravityX * (-1)) / 10) : gravity.x = 0
     valGravityY != undefined ? gravity.y = (valGravityY / 10) : gravity.y = 1
     
+    mfArray.forEach(ball =>{
+        valForceX != undefined ? (Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x: (valForceX * (-1)) / 1000, y: valForceY / 1000})) : null
+        
+    })
     
-}, 100);
+}, 200);
 
-mfArray.forEach(ball =>{
-    valForceX != undefined ? (Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x: (valForceX * (-1)) / 1000, y: valForceY / 1000})) : null
-    
-})
 
 
     // fit the render viewport to the scene
