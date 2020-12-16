@@ -60,7 +60,7 @@ function snowBall() {
     Bodies.circle(wBall / 2, hBall / 2 - 50, innerBallRadius, {
       isStatic: true,
       render: {
-        visible: 1,
+        visible: 0,
       },
     })
   );
@@ -136,10 +136,21 @@ function snowBall() {
         Matter.Composite.remove(world, element);
         mfArray.splice(element,1)
 
+
       }
     });
-    console.log(mfArray.length)
-    
+    if (mfArray.length < 200) {
+        let mfBall = Bodies.circle(
+            wBall / 2,
+            hBall / 2 + 90 * Math.sin((i * 4 * Math.PI) / 180),
+            Common.random(mfRadius, mfRadius / 1.3),
+            { render: { fillStyle: "#fff", strokeStyle: "#fff" } }
+            );
+            
+            mfArray.push(mfBall);
+        }
+        
+        console.log(mfArray.length)
 
 
   }, 200);
