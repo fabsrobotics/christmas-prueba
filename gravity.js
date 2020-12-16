@@ -48,9 +48,9 @@ function gravity() {
   for (let i = 0; i < 90; i++) {
     a = Bodies.rectangle(
       w / 2 + ballRadius * Math.cos((i * 4 * Math.PI) / 180),
-      h / 2 - 35 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
+      h / 2 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
       15,
-      15,
+      50,
       {
         isStatic: true,
         angle: (Math.PI / 180) * i * 4,
@@ -58,7 +58,7 @@ function gravity() {
           fillStyle: "#000",
           strokeStyle: "#fff",
           lineWidth: 0,
-          visible: 0,
+          visible: 1,
         },
       }
     );
