@@ -74,6 +74,8 @@
   //resquest permision to ios users
   var valGravityX = undefined
   var valGravityY = undefined
+  var valForceX = undefined
+  var valForceY = undefined
   function requestPermission() {
 	DeviceOrientationEvent.requestPermission().then(permissionState => {
 		if (permissionState !== 'granted') {
@@ -121,7 +123,9 @@
 		// e.acceleration.y.toFixed(2);
 		// e.acceleration.z.toFixed(2);
     e.accelerationIncludingGravity.x ?	valGravityX = e.accelerationIncludingGravity.x : null
-		e.accelerationIncludingGravity.y ? valGravityY = e.accelerationIncludingGravity.y : null
+    e.accelerationIncludingGravity.y ? valGravityY = e.accelerationIncludingGravity.y : null
+    e.acceleration.x ? valForceX = e.acceleration.x : null
+    e.acceleration.y ? valForceY = e.acceleration.y : null
 		e.interval;
 		// e.rotationRate.alpha.toFixed(2);
 		// e.rotationRate.beta.toFixed(2);

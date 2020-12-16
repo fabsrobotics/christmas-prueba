@@ -5,7 +5,8 @@
         Runner = Matter.Runner,
         World = Matter.World,
         Common = Matter.Common,
-        Bodies = Matter.Bodies
+        Bodies = Matter.Bodies,
+        Body = Matter.Body
 
     // create engine
     let engine = Engine.create(),
@@ -50,7 +51,7 @@
     let mfArray = []
     const mfRadius = sbRadius/30;
     for(let i = 0; i < 200; i++){
-        let mfBall = Bodies.circle(wBall/2+i, hBall / 2 + 90 * Math.sin(i * 4 * Math.PI / 180), mfRadius, {render: {fillStyle: "#fff", strokeStyle: "#fff",}})
+        let mfBall = Bodies.circle(wBall/2, hBall / 2 + 90 * Math.sin(i * 4 * Math.PI / 180), mfRadius, {render: {fillStyle: "#fff", strokeStyle: "#fff",}})
 
 
         mfArray.push(mfBall);
@@ -93,8 +94,13 @@ setInterval(() => {
     valGravityX != undefined ? gravity.x = ((valGravityX * (-1)) / 10) : gravity.x = 0
     valGravityY != undefined ? gravity.y = (valGravityY / 10) : gravity.y = 1
     
+    
 }, 100);
 
+mfArray.forEach(ball =>{
+    valForceX != undefined ? (Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x: (valForceX * (-1)) / 1000, y: valForceY / 1000})) : null
+    
+})
 
 
     // fit the render viewport to the scene
