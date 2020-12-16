@@ -94,11 +94,29 @@ setInterval(() => {
     valGravityX != undefined ? gravity.x = ((valGravityX * (-1)) / 10) : gravity.x = 0
     valGravityY != undefined ? gravity.y = (valGravityY / 10) : gravity.y = 1
     
+
     mfArray.forEach(ball =>{
-        valForceX != undefined ? (Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x: (valForceX * (-1)) / 10000, y: valForceY / 10000})) : null
+        
+        if (valForceX > 3) {
+            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0.001 , y: 0})
+            return
+            
+        } else if (valForceX < -3) {
+
+            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:-0.001 , y: 0})
+            return
+
+        } else if (valForceY > 3) {
+            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0 , y: -0.001})
+            return
+
+        } else if (valForceY < -3) {
+            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0 , y: 0.001})
+            return
+
+        }
         
     })
-    
 }, 200);
 
 
