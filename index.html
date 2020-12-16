@@ -116,6 +116,7 @@
 		button.addEventListener("click",requestPermission);
   }
 	window.addEventListener("devicemotion", e => {
+    console.log(e.accelerationIncludingGravity.x.toFixed(2))
 		// e.acceleration.x.toFixed(2);
 		// e.acceleration.y.toFixed(2);
 		// e.acceleration.z.toFixed(2);
