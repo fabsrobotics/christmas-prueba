@@ -82,36 +82,39 @@
                         fillStyle: "#000",
                         strokeStyle: "#fff",
                         lineWidth: 0,
-                         visible: 0,
+                         visible: 1,
                     }
                 }
             );
             World.add(world, a);
         }
+        gravity.y = 0
 
 setInterval(() => {
     console.log(valGravityX, valGravityY)
-    valGravityX != undefined ? gravity.x = ((valGravityX * (-1)) / 10) : gravity.x = 0
-    valGravityY != undefined ? gravity.y = (valGravityY / 10) : gravity.y = 1
+    valGravityX != undefined ? gravity.x = ((valGravityX * (-1)) / 100) : gravity.x = 0
+    valGravityY != undefined ? gravity.y = (valGravityY / 100) : gravity.y = 0.05
+
     
 
     mfArray.forEach(ball =>{
         
+        
         if (valForceX > 3) {
-            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0.001 , y: 0})
+            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0.002, y: 0})
             return
             
         } else if (valForceX < -3) {
 
-            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:-0.001 , y: 0})
+            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:-0.002, y: 0})
             return
 
         } else if (valForceY > 3) {
-            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0 , y: -0.001})
+            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0 , y: 0.002})
             return
 
         } else if (valForceY < -3) {
-            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0 , y: 0.001})
+            Body.applyForce (ball,  {x: ball.position.x, y: ball.position.y},{x:0 , y: -0.002})
             return
 
         }
