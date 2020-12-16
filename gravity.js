@@ -97,14 +97,9 @@ function gravity() {
   }, 400);
 
   World.add(world, [
-    Bodies.rectangle(
-      0,
-      window.visualViewport.height,
-      window.visualViewport.width * 2,
-      20,
+    Bodies.rectangle(0, h, w * 2, 20,
       { isStatic: true }
     )
-    ,
   ]);
 
   // add mouse control
