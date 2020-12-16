@@ -66,13 +66,14 @@ function snowBall() {
   );
 
   let ballRadius = wBall / 2.9;
+  let subDivisions = 90;
 
-  for (let i = 0; i < 90; i++) {
+  for (let i = 0; i < subDivisions; i++) {
     a = Bodies.rectangle(
       wBall / 2 + ballRadius * Math.cos((i * 4 * Math.PI) / 180),
-      hBall / 2 - 50 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
-      15,
-      50,
+      hBall / 2 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
+      8 * ballRadius / subDivisions,
+      8 * ballRadius / subDivisions,
       {
         isStatic: true,
         angle: (Math.PI / 180) * i * 4,
@@ -80,7 +81,7 @@ function snowBall() {
           fillStyle: "#000",
           strokeStyle: "#fff",
           lineWidth: 0,
-          visible: 0,
+          visible: 1,
         },
       }
     );

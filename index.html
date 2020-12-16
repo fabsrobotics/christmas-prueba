@@ -36,7 +36,13 @@
         
       }
       #canvasBall {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
         z-index: 3;
+        background-color: rgba(255,0,0,0.7);
       }
       .ball-front {
         z-index: 4;
@@ -63,14 +69,30 @@
     </div>
     
     <div class="ball-back">
-      <img src="./Bola_navidad_trasera.png" alt="" width="100%" >
+      <img id="trasera" src="./Bola_navidad_trasera.png" alt="">
 
     </div>
     <div class="ball-front">
-      <img src="./Bola_navidad_delantera.png" alt="" width="100%" >
+      <img id="delantera" src="./Bola_navidad_delantera.png" alt="">
 
     </div>
 <script>
+  window.addEventListener("load",resetImage)
+  window.addEventListener("orientationchange",resetImage)
+  function resetImage(){
+    console.log(window.innerHeight);
+    if(window.innerHeight>window.innerWidth){
+      document.getElementById("delantera").style.height = "100vh";
+      document.getElementById("delantera").style.width = "auto";
+      document.getElementById("trasera").style.height = "100vh";
+      document.getElementById("trasera").style.width = "auto";
+    } else {
+      document.getElementById("delantera").style.width = "100vw";
+      document.getElementById("delantera").style.height = "auto";
+      document.getElementById("trasera").style.width = "100vw";
+      document.getElementById("trasera").style.height = "auto";
+    }
+  }
   let orientation = 1; 
   //resquest permision to ios users
   var valGravityX = undefined
