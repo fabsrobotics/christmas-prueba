@@ -96,13 +96,11 @@
 //         window.addEventListener('deviceorientation', updateGravity);
 //     }
 // }
-       
-setInterval(() => {
-    console.log(valGravityX/10, valGravityY/10)
-    gravity.x = (valGravityX / 10)
-    gravity.y = (valGravityY / 10)
-    
-}, 200);
+
+console.log(valGravityX/10, valGravityY/10)
+gravity.x = (valGravityX / 10)
+gravity.y = (valGravityY / 10)
+
 
     // fit the render viewport to the scene
     Render.lookAt(render, {
