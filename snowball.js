@@ -90,7 +90,7 @@
 
 setInterval(() => {
     console.log(valGravityX, valGravityY)
-    valGravityX != undefined ? gravity.x = (valGravityX / 10) : gravity.x = 0
+    valGravityX != undefined ? gravity.x = ((valGravityX * (-1)) / 10) : gravity.x = 0
     valGravityY != undefined ? gravity.y = (valGravityY / 10) : gravity.y = 1
     
 }, 400);
