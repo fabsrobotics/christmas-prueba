@@ -24,8 +24,22 @@
         top: 0;
         z-index: 0;
       }
-      .bola {
-        z-index: 2;
+      .ball-back {
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        
+      }
+      #canvasBall {
+        z-index: 3;
+      }
+      .ball-front {
+        z-index: 4;
         position: absolute;
         top: 0;
         left: 0;
@@ -48,29 +62,76 @@
       
     </div>
     
-    <div class="bola">
-      <img src="./bola.png" alt="" width="100%" >
+    <div class="ball-back">
+      <img src="./Bola_navidad_trasera.png" alt="" width="100%" >
+
+    </div>
+    <div class="ball-front">
+      <img src="./Bola_navidad_delantera.png" alt="" width="100%" >
 
     </div>
 <script>
-function requestDeviceOrientation () {
-  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-  DeviceOrientationEvent.requestPermission()
-  .then(permissionState => {
-  if (permissionState !== 'granted') {
-  alert("Así no funciona.");
-  }
-  })
-  .catch(console.error);
-  } else {
-  // handle regular non iOS 13+ devices
-  console.log ("not iOS");
-  }
+  //resquest permision to ios users
+  function requestPermission() {
+	DeviceOrientationEvent.requestPermission().then(permissionState => {
+		if (permissionState !== 'granted') {
+			alert("La aplicación no funciona sin estos permisos.\nSi quieres volver a intentarlo sal de safari primero.");
+		} else {
+			document.getElementById("overlay").style.display = "none";
+		}
+	}).catch(err => {
+		alert(err+"Tu dispositivo no tiene acelerometros. Sorry :(");
+	});
 }
-requestDeviceOrientation()
+	if(DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function'){
+		let overlay = document.createElement("DIV");
+		let button = document.createElement("DIV");
+		button.innerHTML = "Start";
+		overlay.appendChild(button);
+		document.body.appendChild(overlay);
+		overlay.id = "overlay";
+		overlay.style = `
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgb(237,183,85);
+		`;
+		button.style = `
+			width: 100px;
+			height: 100px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: red;
+			border-radius: 99999px;
+			border: 2px outset grey;
+		`;
+		button.addEventListener("click",requestPermission);
+  }
+  let valGravityX,
+      valGravityY
+	window.addEventListener("devicemotion",e => {
+		e.acceleration.x.toFixed(2);
+		e.acceleration.y.toFixed(2);
+		e.acceleration.z.toFixed(2);
+		e.accelerationIncludingGravity.x.toFixed(2) = valGravityX
+		e.accelerationIncludingGravity.y.toFixed(2) = valGravityY
+		e.accelerationIncludingGravity.z.toFixed(2);
+		e.interval;
+		e.rotationRate.alpha.toFixed(2);
+		e.rotationRate.beta.toFixed(2);
+		e.rotationRate.gamma.toFixed(2);
+	});
+
   gravity();
-  snowBall();
+  snowBall(valGravityX, valGravityY);
 </script>
+
 
   
     

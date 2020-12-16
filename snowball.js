@@ -1,5 +1,5 @@
 
-    function snowBall(){
+    function snowBall(valGravityX, valGravityY){
     let Engine = Matter.Engine,
         Render = Matter.Render,
         Runner = Matter.Runner,
@@ -48,29 +48,30 @@
 
     // miniflakes
     let mfArray = []
-    const mfRadius = sbRadius/20;
+    const mfRadius = sbRadius/30;
     for(let i = 0; i < 200; i++){
-        let mfBall = Bodies.circle(wBall/2+i, hBall / 2 + 90 * Math.sin(i * 4 * Math.PI / 180),Common.random(3, 7), {render: {fillStyle: "#fff", strokeStyle: "#fff",}})
+        let mfBall = Bodies.circle(wBall/2+i, hBall / 2 + 90 * Math.sin(i * 4 * Math.PI / 180), mfRadius, {render: {fillStyle: "#fff", strokeStyle: "#fff",}})
 
 
         mfArray.push(mfBall);
 
     }
     World.add(world,mfArray); 
-    World.add(world, Bodies.circle(wBall/2, hBall/2, 100, 
+    let innerBallRadius = wBall/8.5
+    World.add(world, Bodies.circle(wBall/2, hBall/2 -35, innerBallRadius, 
         {
             isStatic:true,
             render:{
-                visible: 1
+                visible: 0
             }
     }))
 
-        let ballRadius =  wBall / 2.7
+        let ballRadius =  wBall / 2.9
 
         for(let i = 0; i < 90; i++) {
             a = Bodies.rectangle(
                 wBall / 2  + ballRadius * Math.cos(i * 4 * Math.PI / 180), 
-                hBall / 2 + ballRadius * Math.sin(i * 4 * Math.PI / 180), 
+                hBall / 2 -35 + ballRadius * Math.sin(i * 4 * Math.PI / 180), 
                 20, 
                 20, 
                 {
@@ -80,7 +81,7 @@
                         fillStyle: "#000",
                         strokeStyle: "#fff",
                         lineWidth: 0,
-                         //visible: 0,
+                         visible: 0,
                     }
                 }
             );
@@ -90,26 +91,8 @@
          //add gyro control
     if (typeof window !== 'undefined') {
         let updateGravity = function(event) {
-            let orientation = typeof window.orientation !== 'undefined' ? window.orientation : 0,
-                gravity = engine.world.gravity;
-
-            if (orientation === 0) {
-                gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
-                gravity.y = Common.clamp(event.beta, -90, 90) / 90;
-                console.log(gravity.x, gravity.y)
-            } else if (orientation === 180) {
-                gravity.x = Common.clamp(event.gamma, -90, 90) / 90;
-                gravity.y = Common.clamp(-event.beta, -90, 90) / 90;
-                console.log(gravity.x, gravity.y)
-            } else if (orientation === 90) {
-                gravity.x = Common.clamp(event.beta, -90, 90) / 90;
-                gravity.y = Common.clamp(-event.gamma, -90, 90) / 90;
-                console.log(gravity.x, gravity.y)
-            } else if (orientation === -90) {
-                gravity.x = Common.clamp(-event.beta, -90, 90) / 90;
-                gravity.y = Common.clamp(event.gamma, -90, 90) / 90;
-                console.log(gravity.x, gravity.y)
-            }
+            gravity.x = valGravityX,
+            gravity.y = valGravityY
         };
 
         window.addEventListener('deviceorientation', updateGravity);
