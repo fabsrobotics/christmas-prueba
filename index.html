@@ -72,6 +72,8 @@
     </div>
 <script>
   //resquest permision to ios users
+  let valGravityX = undefined
+      valGravityY = undefined
   function requestPermission() {
 	DeviceOrientationEvent.requestPermission().then(permissionState => {
 		if (permissionState !== 'granted') {
@@ -113,19 +115,17 @@
 		`;
 		button.addEventListener("click",requestPermission);
   }
-  let valGravityX,
-      valGravityY
 	window.addEventListener("devicemotion", e => {
-		e.acceleration.x.toFixed(2);
-		e.acceleration.y.toFixed(2);
-		e.acceleration.z.toFixed(2);
-		e.accelerationIncludingGravity.x.toFixed(2) = valGravityX
-		e.accelerationIncludingGravity.y.toFixed(2) = valGravityY
-		e.accelerationIncludingGravity.z.toFixed(2);
+		// e.acceleration.x.toFixed(2);
+		// e.acceleration.y.toFixed(2);
+		// e.acceleration.z.toFixed(2);
+    e.accelerationIncludingGravity.x.toFixed(2) ?	valGravityX = e.accelerationIncludingGravity.x.toFixed(2) : null
+		e.accelerationIncludingGravity.y.toFixed(2) ? valGravityY = e.accelerationIncludingGravity.y.toFixed(2) : null
 		e.interval;
-		e.rotationRate.alpha.toFixed(2);
-		e.rotationRate.beta.toFixed(2);
-		e.rotationRate.gamma.toFixed(2);
+		// e.rotationRate.alpha.toFixed(2);
+		// e.rotationRate.beta.toFixed(2);
+		// e.rotationRate.gamma.toFixed(2);
+		// e.accelerationIncludingGravity.z.toFixed(2);
 	});
 
   gravity();
