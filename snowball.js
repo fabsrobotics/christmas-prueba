@@ -1,5 +1,5 @@
 
-    function snowBall(valGravityX, valGravityY){
+    function snowBall(){
     let Engine = Matter.Engine,
         Render = Matter.Render,
         Runner = Matter.Runner,
@@ -88,18 +88,13 @@
             World.add(world, a);
         }
 
-         //add gyro control
-//     if (typeof window !== 'undefined') {
-//         let updateGravity = function(event) {
-            
+setInterval(() => {
+    console.log(valGravityX, valGravityY)
+    valGravityX != undefined ? gravity.x = (valGravityX / 10) : gravity.x = 0
+    valGravityY != undefined ? gravity.y = (valGravityY / 10) : gravity.y = 1
+    
+}, 400);
 
-//         window.addEventListener('deviceorientation', updateGravity);
-//     }
-// }
-
-console.log(valGravityX/10, valGravityY/10)
-gravity.x = (valGravityX / 10)
-gravity.y = (valGravityY / 10)
 
 
     // fit the render viewport to the scene

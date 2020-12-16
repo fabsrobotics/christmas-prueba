@@ -72,8 +72,8 @@
     </div>
 <script>
   //resquest permision to ios users
-  let valGravityX = undefined
-  let valGravityY = undefined
+  var valGravityX = undefined
+  var valGravityY = undefined
   function requestPermission() {
 	DeviceOrientationEvent.requestPermission().then(permissionState => {
 		if (permissionState !== 'granted') {
@@ -116,19 +116,19 @@
 		button.addEventListener("click",requestPermission);
   }
 	window.addEventListener("devicemotion", e => {
-    console.log(e.accelerationIncludingGravity.x.toFixed(2))
+    console.log(e.accelerationIncludingGravity.x)
 		// e.acceleration.x.toFixed(2);
 		// e.acceleration.y.toFixed(2);
 		// e.acceleration.z.toFixed(2);
-    e.accelerationIncludingGravity.x.toFixed(2) ?	valGravityX = e.accelerationIncludingGravity.x.toFixed(2) : null
-		e.accelerationIncludingGravity.y.toFixed(2) ? valGravityY = e.accelerationIncludingGravity.y.toFixed(2) : null
+    e.accelerationIncludingGravity.x ?	valGravityX = e.accelerationIncludingGravity.x : null
+		e.accelerationIncludingGravity.y ? valGravityY = e.accelerationIncludingGravity.y : null
 		e.interval;
 		// e.rotationRate.alpha.toFixed(2);
 		// e.rotationRate.beta.toFixed(2);
 		// e.rotationRate.gamma.toFixed(2);
 		// e.accelerationIncludingGravity.z.toFixed(2);
 	});
-  snowBall(valGravityX, valGravityY);
+  snowBall();
 
   gravity();
 </script>
