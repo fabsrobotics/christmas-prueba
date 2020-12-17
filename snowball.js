@@ -68,7 +68,7 @@ function snowBall() {
   let innerSmallBallRadius = wBall / 25;
   World.add(
     world,
-    Bodies.circle(wBall / 2, 63 * hBall / 100, innerSmallBallRadius, {
+    Bodies.circle(wBall / 2, (63 * hBall) / 100, innerSmallBallRadius, {
       isStatic: true,
       render: {
         visible: 0,
@@ -81,10 +81,10 @@ function snowBall() {
 
   for (let i = 0; i < subDivisions; i++) {
     a = Bodies.rectangle(
-      wBall / 2 + ballRadius * Math.cos((i * 4 * Math.PI) / 180),
-      hBall / 2 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
-      8 * ballRadius / subDivisions,
-      8 * ballRadius / subDivisions,
+      wBall / 2 + ballRadius * Math.cos((i * 2 * Math.PI) / subDivisions),
+      hBall / 2 + ballRadius * Math.sin((i * 2 * Math.PI) / subDivisions),
+      (8 * ballRadius) / subDivisions,
+      (8 * ballRadius) / subDivisions,
       {
         isStatic: true,
         angle: (Math.PI / 180) * i * 4,
@@ -99,25 +99,19 @@ function snowBall() {
     World.add(world, a);
   }
 
-  function setFontSize(){
-    fontSize += 0.01;
-    if(fontSize >= 1){ 
-      shakeFinished = true;
-      fontSize = 1;
-    }  
-    document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+fontSize+")";
-  }
-
   setInterval(() => {
     //shake finished rest
+    let fabsRobotics = document.getElementById("fabsRobotics");
 
-    if (!shakeFinished && fontSize > 0 ){
+    if (!shakeFinished && fontSize > 0) {
       fontSize -= 0.01;
-      document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+fontSize+")";
+      document.getElementById("fabsText").innerHTML = "¡Agita!";
+      document.getElementById("fabsRobotics").style.color =
+        "rgba(53,53,53," + fontSize + ")";
     }
 
     //apply forces to body elements
-    
+
     valGravityX != undefined
       ? (gravity.x = (valGravityX * -1) / 100)
       : (gravity.x = 0);
@@ -164,31 +158,28 @@ function snowBall() {
     const allBodies = Matter.Composite.allBodies(world);
     allBodies.forEach((element) => {
       if (
-        (element.position.x > window.visualViewport.width + 50) ||
-        (element.position.x < 0 || element.position.y > hBall)
+        element.position.x > window.visualViewport.width + 50 ||
+        element.position.x < 0 ||
+        element.position.y > hBall
       ) {
         Matter.Composite.remove(world, element);
-        mfArray.splice(element,1)
-
-
+        mfArray.splice(element, 1);
       }
     });
     //add boddies deleted again inside ball
     if (mfArray.length < 200) {
-        let mfBall = Bodies.circle(
-            wBall / 2,
-            hBall / 2 + 90 * Math.sin(( 4 * Math.PI) / 180),
-            Common.random(mfRadius, mfRadius / 1.3),
-            { render: { fillStyle: "#fff", strokeStyle: "#fff" } }
-            );
-            
-            mfArray.push(mfBall);
-            World.add(world,mfBall)
-        }
-        
-        console.log(mfArray.length)
+      let mfBall = Bodies.circle(
+        wBall / 2,
+        hBall / 2 + mfBallRadius*Math.sin((objeto * 2 * Math.PI) / totalObjects),
+        Common.random(mfRadius, mfRadius / 1.3),
+        { render: { fillStyle: "#fff", strokeStyle: "#fff" } }
+      );
 
+      mfArray.push(mfBall);
+      World.add(world, mfBall);
+    }
 
+    console.log(mfArray.length);
   }, 200);
 
   // fit the render viewport to the scene
@@ -198,6 +189,14 @@ function snowBall() {
   });
 }
 
-function setFontSize(){
-  
+function setFontSize() {
+  fontSize += 0.01;
+  if (fontSize >= 1) {
+    shakeFinished = true;
+    fontSize = 1;
+  }
+  document.getElementById("fabsRobotics").style.color =
+    "rgba(53,53,53," + fontSize + ")";
+  document.getElementById("fabsText").innerHTML =
+    "Fabs Robotics os desea felices fiestas";
 }
