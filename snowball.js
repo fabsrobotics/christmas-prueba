@@ -54,10 +54,10 @@ function snowBall() {
     mfArray.push(mfBall);
   }
   World.add(world, mfArray);
-  let innerBallRadius = wBall / 8.5;
+  let innerBallRadius = wBall / 7.4;
   World.add(
     world,
-    Bodies.circle(wBall / 2, hBall / 2 - 50, innerBallRadius, {
+    Bodies.circle(wBall / 2, hBall / 2, innerBallRadius, {
       isStatic: true,
       render: {
         visible: 0,
@@ -65,8 +65,19 @@ function snowBall() {
     })
   );
 
-  let ballRadius = wBall / 2.9;
-  let subDivisions = 110;
+  let innerSmallBallRadius = wBall / 25;
+  World.add(
+    world,
+    Bodies.circle(wBall / 2, 63 * hBall / 100, innerSmallBallRadius, {
+      isStatic: true,
+      render: {
+        visible: 0,
+      },
+    })
+  );
+
+  let ballRadius = wBall / 2.3;
+  let subDivisions = 90;
 
   for (let i = 0; i < subDivisions; i++) {
     a = Bodies.rectangle(
@@ -81,7 +92,7 @@ function snowBall() {
           fillStyle: "#000",
           strokeStyle: "#fff",
           lineWidth: 0,
-          visible: 1,
+          visible: 0,
         },
       }
     );

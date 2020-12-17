@@ -40,10 +40,10 @@ function gravity() {
   let gravity = engine.world.gravity;
 
   // snowBall
-  const sbRadius = w / 3;
+  const sbRadius = w / 2.3;
   const mfRadius = sbRadius / 30;
 
-  let ballRadius = w / 2.9;
+  let ballRadius = w / 2.2;
 
   World.add(engine.world, [Bodies.circle(w/2, h/2, sbRadius, {isStatic:true, render: {strokeStyle: "#fff", visible: 0}})]);
  
