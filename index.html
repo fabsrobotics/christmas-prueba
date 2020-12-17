@@ -13,8 +13,8 @@
     <script src="./snowflakes.js"></script>
 
     <style>
-    
-      
+
+
       * {
         position: relative;
         margin: 0;
@@ -39,7 +39,7 @@
         align-items: center;
         justify-content: center;
         font-size: 2vh;
-        color: rgba(53, 53, 53, 0.0);
+		color: rgba(53,53,53,0.2);
       }
       #canvasSnowFlakes{
         z-index: 0;
@@ -76,7 +76,7 @@
         height: 100%;
         width: 100%;
         z-index: 3;
-        
+
       }
       .ball-front {
         z-index: 4;
@@ -114,20 +114,20 @@
 
   <body>
     <div id="fabsRobotics">
-      <h1 id="textFabs">Fabs Robotics<br>os desea<br>felices fiestas</h1>
+      <h1 id="fabsText">¡Agita!</h1>
     </div>
     <div id="canvasSnowFlakes">
 
     </div>
     <div id="canvasSnow">
 
-      
+
     </div>
     <div id="canvasBall">
-      
-      
+
+
     </div>
-    
+
     <div class="ball-back">
       <img id="trasera" src="./Bola_navidad_trasera_2.png" width="100%" alt="">
 
@@ -141,20 +141,20 @@
  ////////////////////////
  //  Global Variables  //
  ////////////////////////
-  let orientation = 1; 
+  let orientation = 1;
   //resquest permision to ios users
   var valGravityX = undefined
   var valGravityY = undefined
   var valForceX = undefined
   var valForceY = undefined
-  let fontSize = 0;
+  let alphaValue = 0.1;
   let shakeFinished = false
 
   ////////////////
   //  Function  //
   ////////////////
   function requestPermission() {
-	DeviceOrientationEvent.requestPermission().then(permissionState => {
+	DeviceMotionEvent.requestPermission().then(permissionState => {
 		if (permissionState !== 'granted') {
 			alert("La aplicación no funciona sin estos permisos.\nSi quieres volver a intentarlo sal de safari primero.");
 		} else {
@@ -213,13 +213,13 @@
 
   snowFlakes();
   gravity();
-  
+
   snowBall();
 
 </script>
 
 
-  
-    
+
+
   </body>
 </html>
