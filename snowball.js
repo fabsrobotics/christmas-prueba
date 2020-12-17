@@ -100,20 +100,20 @@ function snowBall() {
   }
 
   function setFontSize(){
-    fontSize += 5;
-    if(fontSize >= 50){ 
+    fontSize += 0.01;
+    if(fontSize >= 1){ 
       shakeFinished = true;
-      fontSize = 50;
+      fontSize = 1;
     }  
-    document.getElementById('fabsRobotics').style.fontSize = fontSize+"px";
+    document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+fontSize+")";
   }
 
   setInterval(() => {
     //shake finished rest
 
     if (!shakeFinished && fontSize > 0 ){
-      fontSize--;
-      document.getElementById('fabsRobotics').style.fontSize = fontSize+"px";
+      fontSize -= 0.01;
+      document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+fontSize+")";
     }
 
     //apply forces to body elements
