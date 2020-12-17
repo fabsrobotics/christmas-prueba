@@ -99,7 +99,23 @@ function snowBall() {
     World.add(world, a);
   }
 
+  function setFontSize(){
+    fontSize += 5;
+    if(fontSize >= 50){ 
+      shakeFinished = true;
+      fontSize = 50;
+    }  
+    document.getElementById('fabsRobotics').style.fontSize = fontSize+"px";
+  }
+
   setInterval(() => {
+    //shake finished rest
+
+    if (!shakeFinished && fontSize > 0 ){
+      fontSize--;
+      document.getElementById('fabsRobotics').style.fontSize = fontSize+"px";
+    }
+
     //apply forces to body elements
     
     valGravityX != undefined
@@ -111,6 +127,7 @@ function snowBall() {
 
     mfArray.forEach((ball) => {
       if (valForceX > 4) {
+        setFontSize();
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -118,6 +135,7 @@ function snowBall() {
         );
         return;
       } else if (valForceX < -4) {
+        setFontSize();
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -125,6 +143,7 @@ function snowBall() {
         );
         return;
       } else if (valForceY > 4) {
+        setFontSize();
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -132,6 +151,7 @@ function snowBall() {
         );
         return;
       } else if (valForceY < -4) {
+        setFontSize();
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -176,4 +196,8 @@ function snowBall() {
     min: { x: 0, y: 0 },
     max: { x: window.visualViewport.width, y: window.visualViewport.height },
   });
+}
+
+function setFontSize(){
+  
 }
