@@ -46,7 +46,7 @@ function snowBall() {
   for (let i = 0; i < 200; i++) {
     let mfBall = Bodies.circle(
       wBall / 2,
-      hBall / 2 + 90 * Math.sin((i * 4 * Math.PI) / 180),
+      30 * hBall / 100,
       Common.random(mfRadius, mfRadius / 1.3),
       { render: { fillStyle: "#fff", strokeStyle: "#fff" } }
     );
@@ -83,8 +83,8 @@ function snowBall() {
     a = Bodies.rectangle(
       wBall / 2 + ballRadius * Math.cos((i * 4 * Math.PI) / 180),
       hBall / 2 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
-      8 * ballRadius / subDivisions,
-      8 * ballRadius / subDivisions,
+      16 * ballRadius / subDivisions,
+      16 * ballRadius / subDivisions,
       {
         isStatic: true,
         angle: (Math.PI / 180) * i * 4,
@@ -99,25 +99,17 @@ function snowBall() {
     World.add(world, a);
   }
 
-  function setFontSize(){
-    fontSize += 0.01;
-    if(fontSize >= 1){ 
-      shakeFinished = true;
-      fontSize = 1;
-    }  
-    document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+fontSize+")";
-  }
-
   setInterval(() => {
     //shake finished rest
 
-    if (!shakeFinished && fontSize > 0 ){
-      fontSize -= 0.01;
-      document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+fontSize+")";
+    if (!shakeFinished && alphaValue > 0.1 ){
+      alphaValue -= 0.05;
+	  document.getElementById('fabsText').innerHTML = '¡Agita!'
+      document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+alphaValue+")";
     }
 
     //apply forces to body elements
-    
+
     valGravityX != undefined
       ? (gravity.x = (valGravityX * -1) / 100)
       : (gravity.x = 0);
@@ -125,9 +117,9 @@ function snowBall() {
       ? (gravity.y = valGravityY / 100)
       : (gravity.y = 0.05);
 
+	  if(valForceX < -4 || valForceX > 4 || valForceY < -4 || valForceY > 4) setAlphaValue();
     mfArray.forEach((ball) => {
       if (valForceX > 4) {
-        setFontSize();
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -135,7 +127,6 @@ function snowBall() {
         );
         return;
       } else if (valForceX < -4) {
-        setFontSize();
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -143,7 +134,6 @@ function snowBall() {
         );
         return;
       } else if (valForceY > 4) {
-        setFontSize();
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -151,7 +141,6 @@ function snowBall() {
         );
         return;
       } else if (valForceY < -4) {
-        setFontSize();
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -174,21 +163,22 @@ function snowBall() {
       }
     });
     //add boddies deleted again inside ball
-    if (mfArray.length < 200) {
-        let mfBall = Bodies.circle(
-            wBall / 2,
-            hBall / 2 + 90 * Math.sin(( 4 * Math.PI) / 180),
-            Common.random(mfRadius, mfRadius / 1.3),
-            { render: { fillStyle: "#fff", strokeStyle: "#fff" } }
-            );
-            
-            mfArray.push(mfBall);
-            World.add(world,mfBall)
-        }
-        
-        console.log(mfArray.length)
-
-
+	if (mfArray.length < 200) {
+		
+		console.log('estaoy poerdiendo bolas')
+		for(let j = 0; j < (200-mfArray.lenght); j++){
+			let mfBall = Bodies.circle(
+				wBall / 2,
+				hBall / 2,
+				Common.random(mfRadius, mfRadius / 1.3),
+				{ render: { fillStyle: "#fff", strokeStyle: "#fff" } }
+			);
+			mfArray.push(mfBall);
+			World.add(world,mfBall);
+		}
+		//World.add(world,mfArray);
+	}
+	console.log(mfArray.lenght)
   }, 200);
 
   // fit the render viewport to the scene
@@ -198,6 +188,14 @@ function snowBall() {
   });
 }
 
-function setFontSize(){
-  
+function setAlphaValue(){
+	let d = new Date;
+	console.log(d.getTime()+", alphaValue: "+alphaValue);
+	alphaValue += 0.2;
+    if(alphaValue >= 1.0){
+  	shakeFinished = true;
+  	alphaValue = 1.0;
+    }
+	shakeFinished ? document.getElementById('fabsText').innerHTML = 'Fabs Robotics <br> os desea <br> felices fiestas' : null
+    document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+alphaValue+")";
 }
