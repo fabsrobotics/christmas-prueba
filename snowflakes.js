@@ -39,10 +39,9 @@ function snowFlakes() {
   
     let gravity = engine.world.gravity;
   
-    // snowBall
+    // snowBall specifications for scales
     const sbRadius = w / 3;
     const mfRadius = sbRadius / 30;
-  
     let ballRadius = w / 2.9;
   
    
@@ -50,6 +49,11 @@ function snowFlakes() {
     setInterval(() => {
       gravity.x = Common.random(-0.1, 0.1);
       gravity.y = 0.05;
+
+      //generating snowFlakes
+          //random scale
+      let ramdomScale =  Common.random(mfRadius/100, mfRadius/130)
+      let ramdomScale2 = Common.random(mfRadius/100, mfRadius/130)
   
       World.add(world, [
         Bodies.circle(
@@ -58,8 +62,8 @@ function snowFlakes() {
           Common.random(mfRadius, mfRadius / 1.5),
           { render: { sprite:{
               texture: './snowflake2.png',
-              xScale: Common.random(0.09, 0.07),
-              yScale: Common.random(0.09, 0.07),
+              xScale: ramdomScale,
+              yScale: ramdomScale
           } } }
         ),
   
@@ -69,32 +73,29 @@ function snowFlakes() {
             Common.random(mfRadius, mfRadius / 1.5),
             { render: { sprite:{
                 texture: './snowflake2.png',
-                xScale: Common.random(0.09, 0.07),
-                yScale: Common.random(0.09, 0.07),
+                xScale: ramdomScale2,
+                yScale: ramdomScale2
             } } }
           ),
       ]);
+
+      //delete all snowFlakes out of the window
   
       const allBodies = Matter.Composite.allBodies(world);
       allBodies.forEach((element) => {
         if (
-          (element.position.x > window.visualViewport.width + 50) |
-          (element.position.x < 0)
+          (element.position.x > window.visualViewport.width + 50) ||
+          (element.position.x < 0 || element.position.y > h)
         ) {
           Matter.Composite.remove(world, element);
         }
       });
     }, 800);
   
-    
-  
-    // add mouse control
-   
-  
     // fit the render viewport to the scene
     Render.lookAt(render, {
       min: { x: 0, y: 0 },
-      max: { x: window.visualViewport.width, y: window.visualViewport.height },
+      max: { x: w, y: h },
     });
   }
   

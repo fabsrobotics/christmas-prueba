@@ -89,6 +89,7 @@ function snowBall() {
   }
 
   setInterval(() => {
+    //apply forces to body elements
     
     valGravityX != undefined
       ? (gravity.x = (valGravityX * -1) / 100)
@@ -98,28 +99,28 @@ function snowBall() {
       : (gravity.y = 0.05);
 
     mfArray.forEach((ball) => {
-      if (valForceX > 3) {
+      if (valForceX > 4) {
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
           { x: 0.002, y: 0 }
         );
         return;
-      } else if (valForceX < -3) {
+      } else if (valForceX < -4) {
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
           { x: -0.002, y: 0 }
         );
         return;
-      } else if (valForceY > 3) {
+      } else if (valForceY > 4) {
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
           { x: 0, y: 0.002 }
         );
         return;
-      } else if (valForceY < -3) {
+      } else if (valForceY < -4) {
         Body.applyForce(
           ball,
           { x: ball.position.x, y: ball.position.y },
@@ -128,11 +129,12 @@ function snowBall() {
         return;
       }
     });
+    //delete elements out of window
     const allBodies = Matter.Composite.allBodies(world);
     allBodies.forEach((element) => {
       if (
-        (element.position.x > window.visualViewport.width + 50) |
-        (element.position.x < 0)
+        (element.position.x > window.visualViewport.width + 50) ||
+        (element.position.x < 0 || element.position.y > hBall)
       ) {
         Matter.Composite.remove(world, element);
         mfArray.splice(element,1)
@@ -140,6 +142,7 @@ function snowBall() {
 
       }
     });
+    //add boddies deleted again inside ball
     if (mfArray.length < 200) {
         let mfBall = Bodies.circle(
             wBall / 2,
