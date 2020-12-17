@@ -39,7 +39,10 @@
         align-items: center;
         justify-content: center;
         font-size: 2vh;
-		color: rgba(53,53,53,0.2);
+		    color: rgba(53,53,53,0.2);
+      }
+      #fabsText {
+        margin-bottom: 30px;
       }
       #canvasSnowFlakes{
         z-index: 0;
@@ -98,6 +101,20 @@
         z-index: 5;
         background-color: rgba(0,0,0,0);
       }
+      #miboton {
+      	width: 100px;
+			height: 100px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: red;
+			border:5px solid black;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      
+      
+      
+
+      }
       /* @media (orientation: landscape) {
       html {
       transform: rotate(-90deg);
@@ -114,7 +131,7 @@
 
   <body>
     <div id="fabsRobotics">
-      <h1 id="fabsText">¡Agita!</h1>
+      <h1 id="fabsText">!Agita!</h1>
     </div>
     <div id="canvasSnowFlakes">
 
@@ -137,6 +154,7 @@
 
     </div>
     <div id="central"></div>
+    <!-- <div id="miboton">Hola</div> -->
 <script>
  ////////////////////////
  //  Global Variables  //
@@ -182,7 +200,8 @@
       z-index: 100;
 			justify-content: center;
 			align-items: center;
-			background-color: rgb(237,183,85);
+      background-color: rgb(237,183,85);
+      
 		`;
 		button.style = `
 			width: 100px;

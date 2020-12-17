@@ -44,18 +44,17 @@ function snowBall() {
 
   // miniflakes
   let mfArray = [];
-  const mfRadius = sbRadius / 30;
+  const mfRadius = sbRadius / 27;
   
-  let numBalls = 400
+  let numBalls = 200
   for (let i = 0; i < numBalls; i++) {
-    let xPos = wBall / 2 + (innerSmallBallRadius + (sbRadius - innerSmallBallRadius) * i / numBalls ) * Math.cos(i * 2 * Math.PI / numBalls)
-    let yPos = hBall / 2 + (innerSmallBallRadius + (sbRadius - innerSmallBallRadius) * i / numBalls ) * Math.sin(i * 2 * Math.PI / numBalls)
-    console.log(xPos, yPos)
+    let xPos = wBall / 2 + (innerSmallBallRadius + (sbRadius - innerSmallBallRadius) * i / numBalls ) * Math.cos(i * 8 * Math.PI / numBalls)
+    let yPos = hBall / 2 + (innerSmallBallRadius + (sbRadius - innerSmallBallRadius) * i / numBalls ) * Math.sin(i * 8 * Math.PI / numBalls)
     let mfBall = Bodies.circle(
       xPos,
       yPos,
-      Common.random(mfRadius, mfRadius / 1.3),
-      { render: { fillStyle: "#fff", strokeStyle: "#fff" } }
+      Common.random(mfRadius, mfRadius / 1.5),
+      { render: { fillStyle: Common.choose(['#008f39', '#f80000', '#efb810'])  } }
     );
 
     mfArray.push(mfBall);
@@ -75,7 +74,7 @@ function snowBall() {
   
   World.add(
     world,
-    Bodies.circle(wBall / 2, (63 * hBall) / 100, innerSmallBallRadius, {
+    Bodies.circle(wBall / 2, 63 * hBall / 100, innerSmallBallRadius, {
       isStatic: true,
       render: {
         visible: 0,
@@ -108,7 +107,6 @@ function snowBall() {
 
   setInterval(() => {
     //shake finished rest
-    let fabsRobotics = document.getElementById("fabsRobotics");
 
     if (!shakeFinished && alphaValue > 0.1 ){
       alphaValue -= 0.05;
@@ -161,31 +159,31 @@ function snowBall() {
     const allBodies = Matter.Composite.allBodies(world);
     allBodies.forEach((element) => {
       if (
-        element.position.x > window.visualViewport.width + 50 ||
-        element.position.x < 0 ||
-        element.position.y > hBall
+        (element.position.x > window.visualViewport.width + 50) ||
+        (element.position.x < 0 || element.position.y > hBall)
       ) {
         Matter.Composite.remove(world, element);
-        mfArray.splice(element, 1);
+        mfArray.splice(element,1)
+
+
       }
     });
     //add boddies deleted again inside ball
-	if (mfArray.length < 200) {
+	if (mfArray.length < numBalls) {
 		
-		console.log('estaoy poerdiendo bolas')
-		for(let j = 0; j < (200-mfArray.length); j++){
+		for(let j = 0; j < (numBalls-mfArray.length); j++){
 			let mfBall = Bodies.circle(
-				wBall / 2,
-				hBall / 2,
-				Common.random(mfRadius, mfRadius / 1.3),
-				{ render: { fillStyle: "#fff", strokeStyle: "#fff" } }
+				wBall / 2 + (innerSmallBallRadius + (sbRadius - innerSmallBallRadius) * j / numBalls ) * Math.cos(j * 8 * Math.PI / numBalls),
+				hBall / 2 + (innerSmallBallRadius + (sbRadius - innerSmallBallRadius) * j / numBalls ) * Math.sin(j * 8 * Math.PI / numBalls),
+				Common.random(mfRadius, mfRadius / 1.5),
+				{ render: { fillStyle: Common.choose(['#008f39', '#f80000', '#efb810']) } }
 			);
 			mfArray.push(mfBall);
 			World.add(world,mfBall);
 		}
 		//World.add(world,mfArray);
 	}
-	console.log(mfArray.length)
+
   }, 200);
 
   // fit the render viewport to the scene
@@ -197,7 +195,6 @@ function snowBall() {
 
 function setAlphaValue(){
 	let d = new Date;
-	console.log(d.getTime()+", alphaValue: "+alphaValue);
 	alphaValue += 0.2;
     if(alphaValue >= 1.0){
   	shakeFinished = true;
@@ -206,4 +203,3 @@ function setAlphaValue(){
 	shakeFinished ? document.getElementById('fabsText').innerHTML = 'Fabs Robotics <br> os desea <br> felices fiestas' : null
     document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+alphaValue+")";
 }
-
