@@ -45,25 +45,8 @@ function gravity() {
 
   let ballRadius = w / 2.9;
 
-  for (let i = 0; i < 90; i++) {
-    a = Bodies.rectangle(
-      w / 2 + ballRadius * Math.cos((i * 4 * Math.PI) / 180),
-      h / 2 -50 + ballRadius * Math.sin((i * 4 * Math.PI) / 180),
-      15,
-      50,
-      {
-        isStatic: true,
-        angle: (Math.PI / 180) * i * 4,
-        render: {
-          fillStyle: "#000",
-          strokeStyle: "#fff",
-          lineWidth: 0,
-          visible: 0,
-        },
-      }
-    );
-    World.add(engine.world, a);
-  }
+  World.add(engine.world, [Bodies.circle(w/2, h/2, sbRadius, {isStatic:true, render: {strokeStyle: "#fff", visible: 0}})]);
+ 
 
   setInterval(() => {
     gravity.x = Common.random(-0.1, 0.1);

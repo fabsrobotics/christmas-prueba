@@ -66,7 +66,7 @@ function snowBall() {
   );
 
   let ballRadius = wBall / 2.9;
-  let subDivisions = 90;
+  let subDivisions = 110;
 
   for (let i = 0; i < subDivisions; i++) {
     a = Bodies.rectangle(
@@ -81,7 +81,7 @@ function snowBall() {
           fillStyle: "#000",
           strokeStyle: "#fff",
           lineWidth: 0,
-          visible: 0,
+          visible: 1,
         },
       }
     );
