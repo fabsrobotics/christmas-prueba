@@ -94,14 +94,13 @@
         align-items: center;
         justify-content: center;
       }
-      #central {
+      #turn {
         position: absolute;
-        top: calc(50% - 5px);
-        left: calc(50% - 5px);
-        width: 10px;
-        height: 10px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         z-index: 5;
-        background-color: rgba(0, 0, 0, 0);
       }
       #miboton {
         width: 100px;
@@ -137,49 +136,51 @@
         );
         position: absolute;
       }
-      /* @media (orientation: landscape) {
-      html {
-      transform: rotate(-90deg);
-      transform-origin: left top;
-      width: 100vh;
-      overflow-x: hidden;
-      position: absolute;
-      top: 100%;
-      left: 0;
+      @media only screen and (orientation: landscape) {
+        #turn {
+          display: block;
+        }
+        #container {
+          display: none;
+        }
       }
-} */
+      @media only screen and (orientation: portrait) {
+        #turn {
+          display: none;
+        }
+        .container {
+          display: block;
+        }
+      }
     </style>
   </head>
 
   <body>
-    <div id="fabsRobotics">
-      <h1 id="fabsText">!Agita!</h1>
-    </div>
-    <div id="canvasSnowFlakes"></div>
-    <div id="canvasSnow"></div>
-    <div id="canvasBall"></div>
-
-    <div class="ball-back">
-      <img
+      <div id="fabsRobotics">
+        <h1 id="fabsText">!Agita!</h1>
+      </div>
+      <div id="canvasSnowFlakes"></div>
+      <div id="canvasSnow"></div>
+      <div id="canvasBall"></div>
+      <div class="ball-back">
+        <img
         id="trasera"
         src="./Bola_navidad_trasera_2.png"
         width="100%"
         alt=""
-      />
-    </div>
-    <div class="ball-front">
-      <img
+        />
+      </div>
+      <div class="ball-front">
+        <img
         id="delantera"
         src="./Bola_navidad_delantera_2.png"
         width="100%"
         alt=""
-      />
-    </div>
-    <div id="central"></div>
-    <!-- <div id="shape">
-
-      <div id="miboton">Iniciar</div>
-    </div> -->
+        />
+      </div>
+      <div id="turn">
+        <h1>Por favor, rota el dispositivo</h1>
+      </div>
     <script>
       ////////////////////////
       //  Global Variables  //
@@ -225,44 +226,41 @@
         document.body.appendChild(overlay);
         overlay.id = "overlay";
         overlay.style = `
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-      display: flex;
-      z-index: 100;
-			justify-content: center;
-			align-items: center;
-      background-color: rgb(237,183,85);
-      
-		`;
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              z-index: 100;
+              justify-content: center;
+              align-items: center;
+              background-color: rgb(237,183,85);
+              
+              `;
         button.style = `
-			width: 100px;
-			height: 100px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: #008f39;
-      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    `;
+              width: 100px;
+              height: 100px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: #008f39;
+              clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+              `;
         shape.style = `
-      width: 106px;
-			height: 106px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: black;
-      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-      position: absolute;
-    
-    `;
+              width: 106px;
+              height: 106px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: black;
+              clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+              position: absolute;
+              
+              `;
         button.addEventListener("click", requestPermission);
       }
       window.addEventListener("devicemotion", (e) => {
-        // e.acceleration.x.toFixed(2);
-        // e.acceleration.y.toFixed(2);
-        // e.acceleration.z.toFixed(2);
         e.accelerationIncludingGravity.x
           ? (valGravityX = orientation * e.accelerationIncludingGravity.x)
           : null;
@@ -272,16 +270,16 @@
         e.acceleration.x ? (valForceX = e.acceleration.x) : null;
         e.acceleration.y ? (valForceY = e.acceleration.y) : null;
         e.interval;
-        // e.rotationRate.alpha.toFixed(2);
-        // e.rotationRate.beta.toFixed(2);
-        // e.rotationRate.gamma.toFixed(2);
-        // e.accelerationIncludingGravity.z.toFixed(2);
       });
 
       snowFlakes();
       gravity();
 
       snowBall();
+      //agita para borrar el 2020
+      //oscuro a claro
+      //
     </script>
   </body>
+  
 </html>
