@@ -1,28 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, height=device-height, viewport-fit=cover, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, viewport-fit=cover, initial-scale=1.0"
+    />
     <title>Document</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <script src="./matter.js"></script>
-    <script src="./gravity.js" ></script>
+    <script src="./gravity.js"></script>
     <script src="./snowball.js"></script>
     <script src="./snowflakes.js"></script>
 
     <style>
-
-
       * {
         position: relative;
         margin: 0;
         border: 0;
         padding: 0;
-        font-family: 'Lato', sans-serif;
+        font-family: "Lato", sans-serif;
       }
-      html, body {
+      html,
+      body {
         width: 100%;
         height: 100%;
       }
@@ -30,7 +34,7 @@
         padding: env(safe-area-inset);
       }
       body {
-        background-color:rgb(236, 182, 84);
+        background-color: rgb(236, 182, 84);
       }
       #fabsRobotics {
         height: 30%;
@@ -39,19 +43,18 @@
         align-items: center;
         justify-content: center;
         font-size: 2vh;
-		    color: rgba(53,53,53,0.2);
+        color: rgba(53, 53, 53, 0.2);
       }
       #fabsText {
         margin-bottom: 30px;
       }
-      #canvasSnowFlakes{
+      #canvasSnowFlakes {
         z-index: 0;
         position: absolute;
         left: 0;
         top: 0;
         height: 100%;
         width: 100%;
-
       }
       #canvasSnow {
         position: absolute;
@@ -79,7 +82,6 @@
         height: 100%;
         width: 100%;
         z-index: 3;
-
       }
       .ball-front {
         z-index: 4;
@@ -94,26 +96,46 @@
       }
       #central {
         position: absolute;
-        top: calc( 50% - 5px );
-        left: calc( 50% - 5px );
+        top: calc(50% - 5px);
+        left: calc(50% - 5px);
         width: 10px;
         height: 10px;
         z-index: 5;
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(0, 0, 0, 0);
       }
       #miboton {
-      	width: 100px;
-			height: 100px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: red;
-			border:5px solid black;
-      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-      
-      
-      
-
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(236, 182, 84);
+        clip-path: polygon(
+          25% 0%,
+          75% 0%,
+          100% 50%,
+          75% 100%,
+          25% 100%,
+          0% 50%
+        );
+        position: absolute;
+      }
+      #shape {
+        width: 106px;
+        height: 106px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        clip-path: polygon(
+          25% 0%,
+          75% 0%,
+          100% 50%,
+          75% 100%,
+          25% 100%,
+          0% 50%
+        );
+        position: absolute;
       }
       /* @media (orientation: landscape) {
       html {
@@ -133,64 +155,76 @@
     <div id="fabsRobotics">
       <h1 id="fabsText">!Agita!</h1>
     </div>
-    <div id="canvasSnowFlakes">
-
-    </div>
-    <div id="canvasSnow">
-
-
-    </div>
-    <div id="canvasBall">
-
-
-    </div>
+    <div id="canvasSnowFlakes"></div>
+    <div id="canvasSnow"></div>
+    <div id="canvasBall"></div>
 
     <div class="ball-back">
-      <img id="trasera" src="./Bola_navidad_trasera_2.png" width="100%" alt="">
-
+      <img
+        id="trasera"
+        src="./Bola_navidad_trasera_2.png"
+        width="100%"
+        alt=""
+      />
     </div>
     <div class="ball-front">
-      <img id="delantera" src="./Bola_navidad_delantera_2.png"  width="100%" alt="">
-
+      <img
+        id="delantera"
+        src="./Bola_navidad_delantera_2.png"
+        width="100%"
+        alt=""
+      />
     </div>
     <div id="central"></div>
-    <!-- <div id="miboton">Hola</div> -->
-<script>
- ////////////////////////
- //  Global Variables  //
- ////////////////////////
-  let orientation = 1;
-  //resquest permision to ios users
-  var valGravityX = undefined
-  var valGravityY = undefined
-  var valForceX = undefined
-  var valForceY = undefined
-  let alphaValue = 0.1;
-  let shakeFinished = false
+    <!-- <div id="shape">
 
-  ////////////////
-  //  Function  //
-  ////////////////
-  function requestPermission() {
-	DeviceMotionEvent.requestPermission().then(permissionState => {
-		if (permissionState !== 'granted') {
-			alert("La aplicación no funciona sin estos permisos.\nSi quieres volver a intentarlo sal de safari primero.");
-		} else {
-      orientation = -1;
-			document.getElementById("overlay").style.display = "none";
-		}
-	}).catch(err => {
-		alert(err+"Tu dispositivo no tiene acelerometros. Sorry :(");
-	});
-}
-	if(DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function'){
-		let overlay = document.createElement("DIV");
-		let button = document.createElement("DIV");
-		button.innerHTML = "Start";
-		overlay.appendChild(button);
-		document.body.appendChild(overlay);
-		overlay.id = "overlay";
-		overlay.style = `
+      <div id="miboton">Iniciar</div>
+    </div> -->
+    <script>
+      ////////////////////////
+      //  Global Variables  //
+      ////////////////////////
+      let orientation = 1;
+      //resquest permision to ios users
+      var valGravityX = undefined;
+      var valGravityY = undefined;
+      var valForceX = undefined;
+      var valForceY = undefined;
+      let alphaValue = 0.1;
+      let shakeFinished = false;
+
+      ////////////////
+      //  Function  //
+      ////////////////
+      function requestPermission() {
+        DeviceMotionEvent.requestPermission()
+          .then((permissionState) => {
+            if (permissionState !== "granted") {
+              alert(
+                "La aplicación no funciona sin estos permisos.\nSi quieres volver a intentarlo sal de safari primero."
+              );
+            } else {
+              orientation = -1;
+              document.getElementById("overlay").style.display = "none";
+            }
+          })
+          .catch((err) => {
+            alert(err + "Tu dispositivo no tiene acelerometros. Sorry :(");
+          });
+      }
+      if (
+        DeviceMotionEvent &&
+        typeof DeviceMotionEvent.requestPermission === "function"
+      ) {
+        let overlay = document.createElement("DIV");
+        let button = document.createElement("DIV");
+        let shape = document.createElement("DIV");
+        button.innerHTML = "Start";
+        overlay.appendChild(shape);
+        overlay.appendChild(button);
+        document.body.appendChild(overlay);
+        overlay.id = "overlay";
+        overlay.style = `
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -203,42 +237,51 @@
       background-color: rgb(237,183,85);
       
 		`;
-		button.style = `
+        button.style = `
 			width: 100px;
 			height: 100px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			background-color: red;
-			border-radius: 99999px;
-			border: 2px outset grey;
-		`;
-		button.addEventListener("click",requestPermission);
-  }
-	window.addEventListener("devicemotion", e => {
-		// e.acceleration.x.toFixed(2);
-		// e.acceleration.y.toFixed(2);
-		// e.acceleration.z.toFixed(2);
-    e.accelerationIncludingGravity.x ?	valGravityX = orientation * e.accelerationIncludingGravity.x : null
-    e.accelerationIncludingGravity.y ? valGravityY = orientation * e.accelerationIncludingGravity.y : null
-    e.acceleration.x ? valForceX = e.acceleration.x : null
-    e.acceleration.y ? valForceY = e.acceleration.y : null
-		e.interval;
-		// e.rotationRate.alpha.toFixed(2);
-		// e.rotationRate.beta.toFixed(2);
-		// e.rotationRate.gamma.toFixed(2);
-		// e.accelerationIncludingGravity.z.toFixed(2);
-  });
+			background-color: #008f39;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    `;
+        shape.style = `
+      width: 106px;
+			height: 106px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: black;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      position: absolute;
+    
+    `;
+        button.addEventListener("click", requestPermission);
+      }
+      window.addEventListener("devicemotion", (e) => {
+        // e.acceleration.x.toFixed(2);
+        // e.acceleration.y.toFixed(2);
+        // e.acceleration.z.toFixed(2);
+        e.accelerationIncludingGravity.x
+          ? (valGravityX = orientation * e.accelerationIncludingGravity.x)
+          : null;
+        e.accelerationIncludingGravity.y
+          ? (valGravityY = orientation * e.accelerationIncludingGravity.y)
+          : null;
+        e.acceleration.x ? (valForceX = e.acceleration.x) : null;
+        e.acceleration.y ? (valForceY = e.acceleration.y) : null;
+        e.interval;
+        // e.rotationRate.alpha.toFixed(2);
+        // e.rotationRate.beta.toFixed(2);
+        // e.rotationRate.gamma.toFixed(2);
+        // e.accelerationIncludingGravity.z.toFixed(2);
+      });
 
-  snowFlakes();
-  gravity();
+      snowFlakes();
+      gravity();
 
-  snowBall();
-
-</script>
-
-
-
-
+      snowBall();
+    </script>
   </body>
 </html>
