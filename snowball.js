@@ -200,7 +200,7 @@ function setAlphaValue(){
     if(alphaValue <= 0.2){
     console.log("he llegado hasta aqui")
   	shakeFinished = true;
-  	alphaValue = 1.0;
+  	alphaValue = 1.0
     }
     
 	shakeFinished ? document.getElementById('fabsText').innerHTML = '¡Fabs Robotics <br> os desea <br> Felices Fiestas!' : null
