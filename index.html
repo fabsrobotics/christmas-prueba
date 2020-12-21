@@ -151,6 +151,7 @@
         .container {
           display: block;
           
+          
         }
       }
     </style>
@@ -214,14 +215,14 @@
             alert(err + "Tu dispositivo no tiene acelerometros. Sorry :(");
           });
       }
-      if ( true
-        // DeviceMotionEvent &&
-        // typeof DeviceMotionEvent.requestPermission === "function"
+      if (
+        DeviceMotionEvent &&
+        typeof DeviceMotionEvent.requestPermission === "function"
       ) {
         let overlay = document.createElement("DIV");
         let button = document.createElement("DIV");
         let fabsImage = document.createElement("img")
-        button.innerHTML = "¡START!";
+
         overlay.appendChild(button);
         button.appendChild(fabsImage)
         document.body.appendChild(overlay);
@@ -236,18 +237,20 @@
               z-index: 100;
               justify-content: center;
               align-items: center;
-              background: linear-gradient(to bottom left, #228a05 0%, #e40101 100%);
+              background-color: rgb(236, 182, 84);
 
               
               `;
         button.style = `
-              width: 100px;
-              height: 100px;
+              width: 250px;
+              height: 250px;
               display: flex;
               justify-content: center;
               align-items: center;
-              background-image: url('./100x100px.gif');
+              background-image: url('./panic.png');
               background-repeat: no-repeat;
+              background-size: contain;
+
               `;
         button.addEventListener("click", requestPermission);
       }

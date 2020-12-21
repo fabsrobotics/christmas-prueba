@@ -202,6 +202,7 @@ function setAlphaValue(){
   	shakeFinished = true;
   	alphaValue = 1.0;
     }
+    
 	shakeFinished ? document.getElementById('fabsText').innerHTML = '¡Fabs Robotics <br> os desea <br> Felices Fiestas!' : null
     document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+alphaValue+")";
 }
