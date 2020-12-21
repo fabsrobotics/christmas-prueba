@@ -222,7 +222,7 @@
         let overlay = document.createElement("DIV");
         let button = document.createElement("DIV");
         let fabsImage = document.createElement("img")
-
+        button.innerHTML= '¡START!'
         overlay.appendChild(button);
         button.appendChild(fabsImage)
         document.body.appendChild(overlay);
@@ -242,15 +242,14 @@
               
               `;
         button.style = `
-              width: 250px;
-              height: 250px;
+              width: 120px;
+              height: 120px;
               display: flex;
               justify-content: center;
               align-items: center;
-              background-image: url('./panic.png');
-              background-repeat: no-repeat;
-              background-size: contain;
-
+              background-color:red;
+              border-radius: 9999px;
+              border: solid 3px black;
               `;
         button.addEventListener("click", requestPermission);
       }

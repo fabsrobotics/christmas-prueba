@@ -196,9 +196,8 @@ function snowBall() {
 }
 
 function setAlphaValue(){
-	console.log("setoy aqu")
 	alphaValue -= 0.2;
-    if(alphaValue <= 0.2){
+    if(alphaValue <= 0.1){
   	shakeFinished = true;
   	alphaValue = 1.0;
     }
