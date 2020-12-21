@@ -107,7 +107,7 @@ function snowBall() {
 
   setInterval(() => {
 
-    console.log(alphaValue)
+    console.log(alphaValue, shakeFinished)
 
     if (!shakeFinished && alphaValue < 1 ){
       alphaValue += 0.05;
