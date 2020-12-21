@@ -195,6 +195,7 @@ function snowBall() {
 }
 
 function setAlphaValue(){
+  console.log("setAlphaValue")
     !shakeFinished ? alphaValue -= 0.2 : null
    
     if(alphaValue <= 0.2){
