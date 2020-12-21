@@ -195,7 +195,8 @@ function snowBall() {
 }
 
 function setAlphaValue(){
-	alphaValue -= 0.2;
+   !alphaValue ? alphaValue -= 0.2 : null
+   
     if(alphaValue <= 0.1){
     console.log("he llegado hasta aqui")
   	shakeFinished = true;
@@ -203,5 +204,5 @@ function setAlphaValue(){
     }
     
 	shakeFinished ? document.getElementById('fabsText').innerHTML = '¡Fabs Robotics <br> os desea <br> Felices Fiestas!' : null
-    document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+alphaValue+")";
+  document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+alphaValue+")";
 }
