@@ -108,9 +108,11 @@ function snowBall() {
   setInterval(() => {
     //shake finished rest
 
-    if (!shakeFinished && alphaValue > 0.1 ){
-      alphaValue -= 0.05;
-	  document.getElementById('fabsText').innerHTML = '¡Agita!'
+    console.log(alphaValue)
+
+    if (!shakeFinished && alphaValue < 1 ){
+      alphaValue += 0.05;
+	  //gidocument.getElementById('fabsText').innerHTML = '¡Agita!'
       document.getElementById('fabsRobotics').style.color = "rgba(53,53,53,"+alphaValue+")";
     }
 
@@ -194,9 +196,9 @@ function snowBall() {
 }
 
 function setAlphaValue(){
-	let d = new Date;
-	alphaValue += 0.2;
-    if(alphaValue >= 1.0){
+	console.log("setoy aqu")
+	alphaValue -= 0.2;
+    if(alphaValue <= 0.2){
   	shakeFinished = true;
   	alphaValue = 1.0;
     }

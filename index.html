@@ -43,7 +43,7 @@
         align-items: center;
         justify-content: center;
         font-size: 2vh;
-        color: rgba(53, 53, 53, 0.2);
+        color: rgba(53, 53, 53, 1);
       }
       #fabsText {
         margin-bottom: 30px;
@@ -150,6 +150,7 @@
         }
         .container {
           display: block;
+          
         }
       }
     </style>
@@ -157,7 +158,7 @@
 
   <body>
       <div id="fabsRobotics">
-        <h1 id="fabsText">!Agita!</h1>
+        <h1 id="fabsText">!Agita para <br> borrar el 2020!</h1>
       </div>
       <div id="canvasSnowFlakes"></div>
       <div id="canvasSnow"></div>
@@ -191,7 +192,7 @@
       var valGravityY = undefined;
       var valForceX = undefined;
       var valForceY = undefined;
-      let alphaValue = 0.1;
+      let alphaValue = 1;
       let shakeFinished = false;
 
       ////////////////
@@ -213,16 +214,16 @@
             alert(err + "Tu dispositivo no tiene acelerometros. Sorry :(");
           });
       }
-      if (
-        DeviceMotionEvent &&
-        typeof DeviceMotionEvent.requestPermission === "function"
+      if ( true
+        // DeviceMotionEvent &&
+        // typeof DeviceMotionEvent.requestPermission === "function"
       ) {
         let overlay = document.createElement("DIV");
         let button = document.createElement("DIV");
-        let shape = document.createElement("DIV");
+        let fabsImage = document.createElement("img")
         button.innerHTML = "Start";
-        overlay.appendChild(shape);
         overlay.appendChild(button);
+        button.appendChild(fabsImage)
         document.body.appendChild(overlay);
         overlay.id = "overlay";
         overlay.style = `
@@ -235,7 +236,9 @@
               z-index: 100;
               justify-content: center;
               align-items: center;
-              background-color: rgb(237,183,85);
+              background-color: #ea2027;
+              background-image: linear-gradient(315deg, #ea2027 0%, #ee5a24 74%);
+
               
               `;
         button.style = `
@@ -244,19 +247,8 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              background-color: #008f39;
-              clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-              `;
-        shape.style = `
-              width: 106px;
-              height: 106px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              background-color: black;
-              clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-              position: absolute;
-              
+              background-image: url('./100x100px.gif');
+              background-repeat: no-repeat;
               `;
         button.addEventListener("click", requestPermission);
       }
@@ -276,9 +268,6 @@
       gravity();
 
       snowBall();
-      //agita para borrar el 2020
-      //oscuro a claro
-      //
     </script>
   </body>
   
