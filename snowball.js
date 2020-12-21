@@ -195,9 +195,9 @@ function snowBall() {
 }
 
 function setAlphaValue(){
-   !alphaValue ? alphaValue -= 0.2 : null
+    !shakeFinished ? alphaValue -= 0.2 : null
    
-    if(alphaValue <= 0.1){
+    if(alphaValue <= 0.2){
     console.log("he llegado hasta aqui")
   	shakeFinished = true;
   	alphaValue = 1.0;
