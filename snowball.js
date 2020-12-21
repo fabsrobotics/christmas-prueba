@@ -106,7 +106,6 @@ function snowBall() {
   }
 
   setInterval(() => {
-    //shake finished rest
 
     console.log(alphaValue)
 
@@ -198,6 +197,7 @@ function snowBall() {
 function setAlphaValue(){
 	alphaValue -= 0.2;
     if(alphaValue <= 0.1){
+    console.log("he llegado hasta aqui")
   	shakeFinished = true;
   	alphaValue = 1.0;
     }
